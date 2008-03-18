@@ -1,3 +1,10 @@
+== 0.0.3 2008-xx-xx
+
+
+== 0.0.2 2008-03-19
+* 1 bugfix
+  * Correctly load interface and server files when gem is 'require'd
+
 == 0.0.1 2008-03-18
 
 * 3 major enhancements:
@@ -5,5 +12,3 @@
   * Complete LocoNetOverTCP version 1 implementation
   * Support for the LocoBuffer-USB
 
-* 1 bugfix
-  * Correctly load interface and server files when gem is 'require'd
