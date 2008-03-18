@@ -4,3 +4,6 @@
   * Initial release
   * Complete LocoNetOverTCP version 1 implementation
   * Support for the LocoBuffer-USB
+
+* 1 bugfix
+  * Correctly load interface and server files when gem is 'require'd

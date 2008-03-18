@@ -1,5 +1,8 @@
 $:.unshift File.dirname(__FILE__)
 
+require 'locobufferusb'
+require 'loconetserver'
+
 module NickelSilver
   module Server
     # nothing here yet
