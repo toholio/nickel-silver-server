@@ -1,0 +1,3 @@
+Nickel-Silver is distributed under the same terms as Ruby.
+
+Copyright (c) 2008 Tobin Richard

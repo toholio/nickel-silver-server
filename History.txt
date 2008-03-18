@@ -1,0 +1,6 @@
+== 0.0.1 2008-03-18
+
+* 3 major enhancements:
+  * Initial release
+  * Complete LocoNetOverTCP version 1 implementation
+  * Support for the LocoBuffer-USB
