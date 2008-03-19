@@ -23,11 +23,11 @@ module NickelSilver
     #   require 'nickel-silver-server'
     #   
     #   # connect to a LocoBufferUSB on the virtual serial port /dev/tty.serialport
-    #   interface = LocoBufferUSB.new( '/dev/tty.serialport' )
+    #   interface = NickelSilver::Server::Interface::LocoBufferUSB.new( '/dev/tty.serialport' )
     #   
     #   # create a server using the default port (i.e. 5626, 'loco' spelt on a phone keypad)
     #   # using our freshly connected LocoBuffer-USB
-    #   server = LocoNetServer.new( interface )
+    #   server = NickelSilver::Server::LocoNetServer.new( interface )
     # 
     #   # start the server
     #   server.start
