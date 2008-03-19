@@ -1,5 +1,6 @@
-== 0.0.3 2008-xx-xx
-
+== 0.0.3 2008-03-19
+* 1 minor enhancement:
+  * Tidy before first 'public' release
 
 == 0.0.2 2008-03-19
 * 1 bugfix
