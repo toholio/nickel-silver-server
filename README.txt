@@ -35,8 +35,11 @@ A Ruby server implementing the LocoNetOverTCP protocol allowing remote clients t
 * ruby-serialport is needed to connect with LocoBuffer-USB hardware http://rubyforge.org/projects/ruby-serialport/ 
 
 == INSTALL:
+If you have not added GitHub as a gem source you will need to do so first:
+* gem sources -a http://gems.github.com
 
-* sudo gem install nickel-silver-server
+To install the actual gem:
+* sudo gem install toholio-nickel-silver-server
 
 == LICENSE:
 
