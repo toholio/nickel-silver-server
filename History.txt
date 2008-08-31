@@ -1,3 +1,8 @@
+== 0.0.5 2008-08-31
+* 2 enhancements:
+  * Added gemspec.
+  * Updated documentation to reflect the move to GitHub.
+
 == 0.0.4 2008-03-19
 
 * 1 bugfix

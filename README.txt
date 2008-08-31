@@ -1,6 +1,6 @@
 = nickel-silver-server
 
-* http://rubyforge.org/projects/nickel-silver/
+* http://github.com/toholio/nickel-silver-server/
 
 == DESCRIPTION:
 
