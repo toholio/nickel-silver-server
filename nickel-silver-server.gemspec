@@ -1,6 +1,6 @@
 SPEC = Gem::Specification.new do |s|
   s.name = 'nickel-silver-server'
-  s.version = '0.0.5'
+  s.version = '0.0.6'
   s.summary = 'LocoNet over TCP server.'
   s.description = 'LocoNet over TCP server written in ruby.'
   s.author = 'Tobin Richard'
@@ -23,4 +23,5 @@ SPEC = Gem::Specification.new do |s|
 
   s.has_rdoc = true
   s.extra_rdoc_files = ['History.txt', 'Manifest.txt', 'README.txt']
+  s.add_dependency( 'toholio-serialport', ['> 0.0.0'] )
 end

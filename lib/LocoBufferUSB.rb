@@ -1,5 +1,4 @@
-# Explicitly call Kernel#require because the serialport library explodes with rubygem's implementation.
-Kernel.require 'serialport'
+require 'serialport'
 
 module NickelSilver
   module Server

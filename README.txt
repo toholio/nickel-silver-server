@@ -32,7 +32,9 @@ A Ruby server implementing the LocoNetOverTCP protocol allowing remote clients t
 
 == REQUIREMENTS:
 
-* ruby-serialport is needed to connect with LocoBuffer-USB hardware http://rubyforge.org/projects/ruby-serialport/ 
+The toholio-serialport gem is needed to connect with LocoBuffer-USB hardware. http://github.com/toholio/ruby-serialport/
+
+If you already have an old version of the ruby-serialport library installed you may need to uninstall it first as it will not load under RubyGems.
 
 == INSTALL:
 
