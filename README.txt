@@ -37,8 +37,11 @@ The toholio-serialport gem is needed to connect with LocoBuffer-USB hardware. ht
 If you already have an old version of the ruby-serialport library installed you may need to uninstall it first as it will not load under RubyGems.
 
 == INSTALL:
+If you have not added GitHub as a gem source you will need to do so first:
+* gem sources -a http://gems.github.com
 
-* sudo gem install nickel-silver-server
+To install the actual gem:
+* sudo gem install toholio-nickel-silver-server
 
 == LICENSE:
 
