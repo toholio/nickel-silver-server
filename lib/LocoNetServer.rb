@@ -153,9 +153,7 @@ module NickelSilver
         @clients << client
     
         # output the bytes
-        @interface.io_mutex.synchronize do
-          @interface.output_buffer += packet
-        end
+        @interface.write packet
     
         # keep waiting for packets either for 2 seconds passes or we get a match
         start = Time.now
@@ -199,37 +197,29 @@ module NickelSilver
         end
       end
   
-  
       # Process incoming packets and notficy clients.
       def process_packets
         packet = []
         loop do
-          # wait for data in the buffer
-          # sleep long enough to avoid pegging the CPU 
-          while @interface.input_buffer.empty?
-            sleep(0.1)
-          end
+          @interface.read.each do |byte|
+            # if this is the first byte it must have its msb set
+            packet << byte unless packet.empty? && byte < 0b1000_0000
       
-          # get the next byte out of the buffer
-          byte = 0
-          @interface.io_mutex.synchronize do
-            byte = @interface.input_buffer.shift
-          end
-                  
-          # if this is the first byte it must have its msb set
-          packet << byte unless packet.empty? && byte < 0b1000_0000
+            # if we somehow got another opcode before completing a packet
+            # then dump the current broken packet and start over
+            packet = [byte] if byte >= 0b1000_0000
       
-          # if we somehow got another opcode before completing a packet
-          # then dump the current broken packet and start over
-          packet = [byte] if byte >= 0b1000_0000
-      
-          # notify clients if the packet is complete
-          if packet_complete?( packet )
-            notify_clients( packet )
+            # notify clients if the packet is complete
+            if packet_complete?( packet )
+              notify_clients( packet )
         
-            # reset cuurent packet
-            packet = []
+              # reset cuurent packet
+              packet = []
+            end
           end
+          
+          # sleep long enough to avoid pegging the CPU
+          sleep( 0.1 )
         end
       end
   
