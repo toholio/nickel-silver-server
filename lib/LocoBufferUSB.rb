@@ -11,21 +11,19 @@ module NickelSilver
       # = Stand-alone usage
       #   lb = LocoBufferUSB.new( '/dev/ttys0' )
       #   
-      #   lb.run
+      #   runner = Thread.new do
+      #     lb.run
+      #   end
       #   
       #   loop do
       #     sleep(1)
       #     
-      #     until lb.input_buffer.empty? do
-      #       lb.io_mutex.synchronize do
-      #         puts "Got byte #{ format( '%02x', lb.input_buffer.shift ) } from LocoNet"
-      #       end
+      #     lb.read.each do |byte|
+      #       puts "Got byte #{ format( '%02x', byte ) } from LocoNet"
       #     end
       #   end
       #
       class LocoBufferUSB
-        attr_accessor :input_buffer, :output_buffer, :io_mutex
-  
         # Connect to a LocoBuffer-USB using the specified serial port.
         def initialize( serial_port )
           @locobuffer = SerialPort.new( serial_port, 57_600 )
@@ -35,7 +33,24 @@ module NickelSilver
           @output_buffer = []
     
           # only make changes when locked using @io_mutex
-          @io_mutex = @iomutex = Mutex.new
+          @io_mutex = Mutex.new
+        end
+
+        # Returns an array of bytes read since the last time this method was called.
+        def read
+          inward = []
+          @io_mutex.synchronize do
+            inward += @input_buffer
+            @input_buffer = []
+          end
+          inward
+        end
+
+        # Adds an array of bytes to the data waiting to be sent.
+        def write( bytes )
+          @io_mutex.synchronize do
+            @output_buffer += bytes
+          end
         end
   
         # Handle packets moving in and out of the LocoBuffer-USB.
@@ -47,8 +62,7 @@ module NickelSilver
               end
             end
   
-            # puts "outbuf length = #{output_buffer.length}"
-            until output_buffer.empty? do
+            until @output_buffer.empty? do
               @io_mutex.synchronize do
                 @locobuffer.putc( @output_buffer.shift )
               end
