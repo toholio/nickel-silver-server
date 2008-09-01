@@ -13,7 +13,8 @@ module NickelSilver
     # * Provide a method that causes your interface to start collecting packets
     #
     # The interface is simple. Only the following public methods are needed:
-    # * Accessors for input_buffer, output_buffer and io_mutex
+    # * read() which returns an array of FixNums that have been received since read() was last called.
+    # * write() which adds an array of FixNums to the bytes waiting to be transmitted.
     # * run() which starts buffering
     #
     # How you do this will depend upon your hardware. Take a look at the LocoBufferUSB class to get
@@ -22,8 +23,6 @@ module NickelSilver
     # A stub driver might look like the following...
     #
     #   class SomeLocoNetInterface
-    #     attr_accessor :input_buffer, :output_buffer, :io_mutex
-    #   
     #     def initialize
     #       # these may be modified at any time by the server
     #       @input_buffer = []
@@ -32,7 +31,22 @@ module NickelSilver
     #       # only make changes when locked using @io_mutex
     #       @io_mutex = Mutex.new
     #     end
-    #   
+    #
+    #     def read
+    #       inward = []
+    #       @io_mutex.synchronize do
+    #         inward += @input_buffer
+    #         @input_buffer = []
+    #       end
+    #       inward
+    #     end
+    #
+    #     def write( bytes )
+    #       @io_mutex.synchronize do
+    #         @output_buffer += bytes
+    #       end
+    #     end
+    #
     #     def run
     #       loop do
     #         # get incoming bytes
